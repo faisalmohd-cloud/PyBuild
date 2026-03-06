@@ -1,0 +1,68 @@
+PS C:\Users\bytesketch> pybuild build Example
+
+    390 INFO: PyInstaller: 6.19.0, contrib hooks: 2026.2
+    391 INFO: Python: 3.14.3
+    459 INFO: Platform: Windows-11-10.0.26200-SP0
+    459 INFO: Python environment: C:\Dev\ToolChains\Python\Python3
+    461 INFO: wrote C:\Users\bytesketch\Example\example.spec
+    469 INFO: Module search paths (PYTHONPATH):
+    ['C:\\Dev\\ToolChains\\Python\\Python3\\Scripts\\pyinstaller.exe',
+    'C:\\Dev\\ToolChains\\Python\\Python3\\python314.zip',
+    'C:\\Dev\\ToolChains\\Python\\Python3\\DLLs',
+    'C:\\Dev\\ToolChains\\Python\\Python3\\Lib',
+    'C:\\Dev\\ToolChains\\Python\\Python3',
+    'C:\\Dev\\ToolChains\\Python\\Python3\\Lib\\site-packages',
+    'C:\\Users\\bytesketch\\Example\\example']
+    1187 INFO: checking Analysis
+    1188 INFO: Building Analysis because Analysis-00.toc is non existent
+    1188 INFO: Looking for Python shared library...
+    1189 INFO: Using Python shared library: C:\Dev\ToolChains\Python\Python3\python314.dll
+    1189 INFO: Running Analysis Analysis-00.toc
+    1189 INFO: Target bytecode optimization level: 0
+    1190 INFO: Initializing module dependency graph...
+    1193 INFO: Initializing module graph hook caches...
+    1221 INFO: Analyzing modules for base_library.zip ...
+    4842 INFO: Processing standard module hook 'hook-encodings.py' from 'C:\\Dev\\ToolChains\\Python\\Python3\\Lib\\site-packages\\PyInstaller\\hooks'
+    11257 INFO: Processing standard module hook 'hook-difflib.py' from 'C:\\Dev\\ToolChains\\Python\\Python3\\Lib\\site-packages\\PyInstaller\\hooks'
+    11332 INFO: Processing standard module hook 'hook-heapq.py' from 'C:\\Dev\\ToolChains\\Python\\Python3\\Lib\\site-packages\\PyInstaller\\hooks'
+    11719 INFO: Processing standard module hook 'hook-pickle.py' from 'C:\\Dev\\ToolChains\\Python\\Python3\\Lib\\site-packages\\PyInstaller\\hooks'
+    19068 INFO: Caching module dependency graph...
+    19138 INFO: Analyzing C:\Users\bytesketch\Example\example\main.py
+    19142 INFO: Processing module hooks (post-graph stage)...
+    19152 INFO: Performing binary vs. data reclassification (1 entries)
+    19155 INFO: Looking for ctypes DLLs
+    19165 INFO: Analyzing run-time hooks ...
+    19168 INFO: Including run-time hook 'pyi_rth_inspect.py' from 'C:\\Dev\\ToolChains\\Python\\Python3\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+    19216 INFO: Creating base_library.zip...
+    19259 INFO: Looking for dynamic libraries
+    19536 INFO: Extra DLL search directories (AddDllDirectory): []
+    19537 INFO: Extra DLL search directories (PATH): []
+    20061 INFO: Warnings written to C:\Users\bytesketch\Example\build\example\warn-example.txt
+    20097 INFO: Graph cross-reference written to C:\Users\bytesketch\Example\build\example\xref-example.html
+    20223 INFO: checking PYZ
+    20223 INFO: Building PYZ because PYZ-00.toc is non existent
+    20223 INFO: Building PYZ (ZlibArchive) C:\Users\bytesketch\Example\build\example\PYZ-00.pyz
+    20462 INFO: Building PYZ (ZlibArchive) C:\Users\bytesketch\Example\build\example\PYZ-00.pyz completed successfully.
+    20476 INFO: checking PKG
+    20477 INFO: Building PKG because PKG-00.toc is non existent
+    20477 INFO: Building PKG (CArchive) example.pkg
+    22332 INFO: Building PKG (CArchive) example.pkg completed successfully.
+    22338 INFO: Bootloader C:\Dev\ToolChains\Python\Python3\Lib\site-packages\PyInstaller\bootloader\Windows-64bit-intel\run.exe
+    22339 INFO: checking EXE
+    22339 INFO: Building EXE because EXE-00.toc is non existent
+    22340 INFO: Building EXE from EXE-00.toc
+    22340 INFO: Copying bootloader EXE to C:\Users\bytesketch\Example\dist\example.exe
+    22521 INFO: Copying icon to EXE
+    22616 INFO: Copying 0 resources to EXE
+    22616 INFO: Embedding manifest in EXE
+    22696 INFO: Appending PKG archive to EXE
+    22780 INFO: Fixing EXE headers
+    23199 INFO: Building EXE from EXE-00.toc completed successfully.
+    23204 INFO: Build complete! The results are available in: C:\Users\bytesketch\Example\dist
+    Successfully built project: in 23.76 seconds.
+
+PS C:\Users\bytesketch> ./Example/dist/example
+
+    Hello from PyBuild
+
+PS C:\Users\bytesketch>

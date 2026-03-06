@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>PyBuild Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        a {
+            color: #58a6ff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #58a6ff;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            color: #8b949e;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            color: #8b949e;
+            margin-bottom: 0.5rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            display: grid;
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        pre {
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+            color: #8b949e;
+            background-color: #0d1117;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: #c9d1d9;
+        }
+
+        blockquote {
+            border-left: 4px solid #238636;
+            padding-left: 1rem;
+            color: #8b949e;
+            font-style: italic;
+            margin: 1rem 0;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #238636;
+            color: white;
+            border-radius: 6px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #2ea043;
+        }
+
+        .card h2 {
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+    </style>
+</head>
+<body>
+<h1>PyBuild</h1>
+<div class="container">
+    <div class="card">
+        <p><strong>PyBuild</strong> is a <code>lightweight</code>, <code>experimental</code> Python project initializer
+            and builder that automates basic project setup.
+            This app is currently in an experimental stage, so it’s best suited for <code>mini</code> projects.
+            Future updates will expand support for multi-package initialization and more advanced builds.</p>
+        <blockquote>⚠️ <em>Build support is minimal. It only works with a perfect <code>pyproject.toml</code> (for
+            libraries) or <code>PyExeBuild.pyb</code> (for executables).</em></blockquote>
+    </div>
+
+    <div class="card">
+        <h2>Usage</h2>
+        <p>Installing and using PyBuild is simple:</p>
+        <ol>
+            <li>Download the <a href="https://www.github.com/bytesketch/PyBuild/releases/">installer from releases</a>.
+            </li>
+            <li>Choose a path and install it.</li>
+            <li>Use it via the terminal.</li>
+        </ol>
+
+        <h3>Initialize a Project</h3>
+        <pre><code>pybuild init [path] [exe | lib] (--git)</code></pre>
+
+        <h4>Examples</h4>
+        <p>Initialize an executable project in the current directory:</p>
+        <pre><code>pybuild init . exe</code></pre>
+
+        <p>Initialize a library project with Git in a <code>Projects</code> folder:</p>
+        <pre><code>pybuild init Projects lib --git</code></pre>
+    </div>
+
+    <div class="card">
+        <h2>Platform Support</h2>
+        <ul>
+            <li><strong>Windows:</strong> Fully supported.</li>
+            <li><strong>Linux / macOS:</strong> Currently <strong>not supported</strong>.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>Building PyBuild (Windows Only)</h2>
+        <p>You can build the app and its installer in a few steps.</p>
+
+        <h3>Step 1: Clone the repository</h3>
+        <pre><code>git clone https://github.com/bytesketch/PyBuild.git
+cd PyBuild</code></pre>
+        <p>Or <a href="https://github.com/bytesketch/PyBuild/archive/refs/heads/main.zip">download directly</a>, unzip,
+            and change into the directory.</p>
+
+        <h3>Step 2: Build the App</h3>
+        <h4>Option A: Using <code>make</code></h4>
+        <pre><code>make</code></pre>
+
+        <h4>Option B: Without <code>make</code> (Windows PowerShell)</h4>
+        <ol>
+            <li>Build the app:
+                <pre><code>powershell -ExecutionPolicy Bypass -File pybuild.build.ps1</code></pre>
+            </li>
+            <li>Build the binary:
+                <pre><code>python binary-build.py</code></pre>
+            </li>
+            <li>Build the installer:
+                <pre><code>powershell -ExecutionPolicy Bypass -File installer.build.ps1</code></pre>
+            </li>
+        </ol>
+    </div>
+
+    <div class="card">
+        <h2>License</h2>
+        <p>This project is licensed under <strong>MIT 2026</strong>.
+            For full details, see <a href="https://www.github.com/bytesketch/PyBuild/blob/main/LICENSE">LICENSE</a>.</p>
+    </div>
+
+</div>
+</body>
+</html>

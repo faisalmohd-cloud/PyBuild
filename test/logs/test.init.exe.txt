@@ -1,0 +1,26 @@
+PS C:\Users\bytesketch> pybuild init . exe --git
+
+    Enter project name: Example
+    Enter executable name: example
+    Initialize MIT License? [y/N]: y
+    Initializing Virtual Environment...
+    Virtual Environment Initialized.
+    Git is not installed.
+    Aborting Git Initialization.
+    Successfully initialized project: Example
+
+PS C:\Users\bytesketch> ls Example
+
+    Directory: C:\Users\bytesketch\Example
+
+    Mode                 LastWriteTime         Length Name
+    ----                 -------------         ------ ----
+    d-----        06-03-2026  05:02 PM                .venv
+    d-----        06-03-2026  05:02 PM                example
+    d-----        06-03-2026  05:02 PM                resources
+    -a----        06-03-2026  05:02 PM             70 .gitignore
+    -a----        06-03-2026  05:02 PM           1091 LICENSE
+    -a----        06-03-2026  05:02 PM            217 PyExeBuild.pyb
+    -a----        06-03-2026  05:02 PM             13 README.md
+
+PS C:\Users\bytesketch>

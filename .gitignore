@@ -1,0 +1,15 @@
+# Generated folders
+/build/
+/dist/
+__pycache__/
+
+# Environment
+/.venv/
+
+# Idea
+/.idea/
+
+# Runtime generated files
+/pybuild_app_binary_code.py
+/pybuild.spec
+/PyBuild-Installer.spec

@@ -1,0 +1,92 @@
+PS C:\Users\bytesketch> pybuild build Example
+
+    * Creating isolated environment: venv+pip...
+    * Installing packages in isolated environment:
+        - setuptools>=61.0
+    * Getting build dependencies for sdist...
+    running egg_info
+    creating Example.egg-info
+    writing Example.egg-info\PKG-INFO
+    writing dependency_links to Example.egg-info\dependency_links.txt
+    writing top-level names to Example.egg-info\top_level.txt
+    writing manifest file 'Example.egg-info\SOURCES.txt'
+    reading manifest file 'Example.egg-info\SOURCES.txt'
+    adding license file 'LICENSE'
+    writing manifest file 'Example.egg-info\SOURCES.txt'
+    * Building sdist...
+    running sdist
+    running egg_info
+    writing Example.egg-info\PKG-INFO
+    writing dependency_links to Example.egg-info\dependency_links.txt
+    writing top-level names to Example.egg-info\top_level.txt
+    reading manifest file 'Example.egg-info\SOURCES.txt'
+    adding license file 'LICENSE'
+    writing manifest file 'Example.egg-info\SOURCES.txt'
+    running check
+    creating example-0.1.0
+    creating example-0.1.0\Example.egg-info
+    creating example-0.1.0\example
+    copying files to example-0.1.0...
+    copying LICENSE -> example-0.1.0
+    copying README.md -> example-0.1.0
+    copying pyproject.toml -> example-0.1.0
+    copying Example.egg-info\PKG-INFO -> example-0.1.0\Example.egg-info
+    copying Example.egg-info\SOURCES.txt -> example-0.1.0\Example.egg-info
+    copying Example.egg-info\dependency_links.txt -> example-0.1.0\Example.egg-info
+    copying Example.egg-info\top_level.txt -> example-0.1.0\Example.egg-info
+    copying example\__init__.py -> example-0.1.0\example
+    copying example\example.py -> example-0.1.0\example
+    copying Example.egg-info\SOURCES.txt -> example-0.1.0\Example.egg-info
+    Writing example-0.1.0\setup.cfg
+    Creating tar archive
+    removing 'example-0.1.0' (and everything under it)
+    * Building wheel from sdist
+    * Creating isolated environment: venv+pip...
+    * Installing packages in isolated environment:
+        - setuptools>=61.0
+    * Getting build dependencies for wheel...
+    running egg_info
+    writing Example.egg-info\PKG-INFO
+    writing dependency_links to Example.egg-info\dependency_links.txt
+    writing top-level names to Example.egg-info\top_level.txt
+    reading manifest file 'Example.egg-info\SOURCES.txt'
+    adding license file 'LICENSE'
+    writing manifest file 'Example.egg-info\SOURCES.txt'
+    * Building wheel...
+    running bdist_wheel
+    running build
+    running build_py
+    creating build\lib\example
+    copying example\example.py -> build\lib\example
+    copying example\__init__.py -> build\lib\example
+    running egg_info
+    writing Example.egg-info\PKG-INFO
+    writing dependency_links to Example.egg-info\dependency_links.txt
+    writing top-level names to Example.egg-info\top_level.txt
+    reading manifest file 'Example.egg-info\SOURCES.txt'
+    adding license file 'LICENSE'
+    writing manifest file 'Example.egg-info\SOURCES.txt'
+    installing to build\bdist.win-amd64\wheel
+    running install
+    running install_lib
+    creating build\bdist.win-amd64\wheel
+    creating build\bdist.win-amd64\wheel\example
+    copying build\lib\example\example.py -> build\bdist.win-amd64\wheel\.\example
+    copying build\lib\example\__init__.py -> build\bdist.win-amd64\wheel\.\example
+    running install_egg_info
+    Copying Example.egg-info to build\bdist.win-amd64\wheel\.\Example-0.1.0-py3.14.egg-info
+    running install_scripts
+    creating build\bdist.win-amd64\wheel\example-0.1.0.dist-info\WHEEL
+    creating 'C:\\Users\\bytesketch\\Example\\dist\\.tmp-zzj72s26\\example-0.1.0-py3-none-any.whl' and adding 'build\\bdist.win-amd64\\wheel' to it
+    adding 'example/__init__.py'
+    adding 'example/example.py'
+    adding 'example-0.1.0.dist-info/licenses/LICENSE'
+    adding 'example-0.1.0.dist-info/METADATA'
+    adding 'example-0.1.0.dist-info/WHEEL'
+    adding 'example-0.1.0.dist-info/top_level.txt'
+    adding 'example-0.1.0.dist-info/RECORD'
+    removing build\bdist.win-amd64\wheel
+    Successfully built example-0.1.0.tar.gz and example-0.1.0-py3-none-any.whl
+    Successfully built project: in 23.64 seconds.
+
+PS C:\Users\bytesketch>
