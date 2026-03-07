@@ -49,6 +49,7 @@ def parse_pyb(path: Path) -> list[str]:
     name = None
     main = None
     icon = None
+    collect = None
     window = "auto"
     onefile = True
 
@@ -64,6 +65,10 @@ def parse_pyb(path: Path) -> list[str]:
 
         elif line.startswith("window-type"):
             window = line.split(">>")[1].strip().lower()
+
+        elif line.startswith("collect-all"):
+            all_collect = line.split(">>")[1].strip()
+            collect = all_collect.split()
 
         elif ".onedir" in line:
             onefile = False
@@ -87,6 +92,11 @@ def parse_pyb(path: Path) -> list[str]:
         cmd.append("--console")
 
     cmd.append(main)
+
+    if collect:
+        for item in collect:
+            cmd.append("--collect-all")
+            cmd.append(item)
 
     return cmd
 
@@ -154,7 +164,8 @@ project({project_name} >> {project_path.resolve()}
 executable({item_name}
     main >> {(item_path / "main.py").resolve()}
     icon >> {(project_path / "resources" / "icon.ico").resolve()}
-    window-type >> AUTO # Options are [AUTO | CLI | GUI]. Case-INSENSITIVE
+    window-type >> CLI # Options are [AUTO | CLI | GUI]. Case-INSENSITIVE
+    # collect-all >> rich typer # Collect all
 ).onefile # Defaults to onedir
 """)
 
