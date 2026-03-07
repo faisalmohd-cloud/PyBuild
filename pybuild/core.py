@@ -43,7 +43,7 @@ def parse_pyb(path: Path) -> list[str]:
     lines = []
     for line in text.splitlines():
         line = line.split("#")[0].strip()
-        if line:
+        if line and not line.startswith("#"):
             lines.append(line)
 
     name = None
