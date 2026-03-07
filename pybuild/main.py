@@ -1,12 +1,13 @@
 import os
+import subprocess
 import sys
 import time
 from pathlib import Path
 
 import typer
 from rich import print
-from rich.table import Table
 from rich.console import Console
+from rich.table import Table
 
 import core
 from project_type import ProjectType
@@ -14,7 +15,7 @@ from project_type import ProjectType
 app: typer.Typer = typer.Typer()
 console: Console = Console()
 
-VERSION: str = "1.0-rc1.windows"
+VERSION: str = "1.0-rc2.windows"
 
 
 @app.callback()
@@ -150,7 +151,17 @@ def version() -> None:
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
-        pass
+        print("[bright_cyan]Welcome to PyBuild![/bright_cyan]")
+        print("Now type commands without 'pybuild'")
+        print("Use [bright_blue]exit[/bright_blue] to exit")
+
+        while True:
+            cmd = ["pybuild"]
+            cmd.extend(input(">> ").strip().split())
+            if cmd[1] == "exit":
+                break
+            subprocess.run(cmd, check=True)
+        print("[bright_yellow]Exiting...[/bright_yellow]")
     else:
         cmd = sys.argv[1].lower()
         if cmd.startswith("--"):
