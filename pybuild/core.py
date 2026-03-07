@@ -145,13 +145,17 @@ if __name__ == "__main__":
         init_mit(project_path)
 
     with open(project_path / "PyExeBuild.pyb", "w") as pyb:
-        pyb.write(f"""project({project_name} >> {project_path.resolve()}
+        pyb.write(f"""# This is a comment
+# Please don't modify the structure.
+# Only change the main file, icon or window-type in this.
+# Also specify onefile or onedir.
+project({project_name} >> {project_path.resolve()}
 
 executable({item_name}
     main >> {(item_path / "main.py").resolve()}
     icon >> {(project_path / "resources" / "icon.ico").resolve()}
-    window-type >> AUTO
-).onefile
+    window-type >> AUTO # Options are [AUTO | CLI | GUI]. Case-INSENSITIVE
+).onefile # Defaults to onedir
 """)
 
 
