@@ -1,68 +1,116 @@
 PS C:\Users\bytesketch> pybuild build Example
 
-    390 INFO: PyInstaller: 6.19.0, contrib hooks: 2026.2
-    391 INFO: Python: 3.14.3
-    459 INFO: Platform: Windows-11-10.0.26200-SP0
-    459 INFO: Python environment: C:\Dev\ToolChains\Python\Python3
-    461 INFO: wrote C:\Users\bytesketch\Example\example.spec
-    469 INFO: Module search paths (PYTHONPATH):
-    ['C:\\Dev\\ToolChains\\Python\\Python3\\Scripts\\pyinstaller.exe',
-    'C:\\Dev\\ToolChains\\Python\\Python3\\python314.zip',
-    'C:\\Dev\\ToolChains\\Python\\Python3\\DLLs',
-    'C:\\Dev\\ToolChains\\Python\\Python3\\Lib',
-    'C:\\Dev\\ToolChains\\Python\\Python3',
-    'C:\\Dev\\ToolChains\\Python\\Python3\\Lib\\site-packages',
-    'C:\\Users\\bytesketch\\Example\\example']
-    1187 INFO: checking Analysis
-    1188 INFO: Building Analysis because Analysis-00.toc is non existent
-    1188 INFO: Looking for Python shared library...
-    1189 INFO: Using Python shared library: C:\Dev\ToolChains\Python\Python3\python314.dll
-    1189 INFO: Running Analysis Analysis-00.toc
-    1189 INFO: Target bytecode optimization level: 0
-    1190 INFO: Initializing module dependency graph...
-    1193 INFO: Initializing module graph hook caches...
-    1221 INFO: Analyzing modules for base_library.zip ...
-    4842 INFO: Processing standard module hook 'hook-encodings.py' from 'C:\\Dev\\ToolChains\\Python\\Python3\\Lib\\site-packages\\PyInstaller\\hooks'
-    11257 INFO: Processing standard module hook 'hook-difflib.py' from 'C:\\Dev\\ToolChains\\Python\\Python3\\Lib\\site-packages\\PyInstaller\\hooks'
-    11332 INFO: Processing standard module hook 'hook-heapq.py' from 'C:\\Dev\\ToolChains\\Python\\Python3\\Lib\\site-packages\\PyInstaller\\hooks'
-    11719 INFO: Processing standard module hook 'hook-pickle.py' from 'C:\\Dev\\ToolChains\\Python\\Python3\\Lib\\site-packages\\PyInstaller\\hooks'
-    19068 INFO: Caching module dependency graph...
-    19138 INFO: Analyzing C:\Users\bytesketch\Example\example\main.py
-    19142 INFO: Processing module hooks (post-graph stage)...
-    19152 INFO: Performing binary vs. data reclassification (1 entries)
-    19155 INFO: Looking for ctypes DLLs
-    19165 INFO: Analyzing run-time hooks ...
-    19168 INFO: Including run-time hook 'pyi_rth_inspect.py' from 'C:\\Dev\\ToolChains\\Python\\Python3\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
-    19216 INFO: Creating base_library.zip...
-    19259 INFO: Looking for dynamic libraries
-    19536 INFO: Extra DLL search directories (AddDllDirectory): []
-    19537 INFO: Extra DLL search directories (PATH): []
-    20061 INFO: Warnings written to C:\Users\bytesketch\Example\build\example\warn-example.txt
-    20097 INFO: Graph cross-reference written to C:\Users\bytesketch\Example\build\example\xref-example.html
-    20223 INFO: checking PYZ
-    20223 INFO: Building PYZ because PYZ-00.toc is non existent
-    20223 INFO: Building PYZ (ZlibArchive) C:\Users\bytesketch\Example\build\example\PYZ-00.pyz
-    20462 INFO: Building PYZ (ZlibArchive) C:\Users\bytesketch\Example\build\example\PYZ-00.pyz completed successfully.
-    20476 INFO: checking PKG
-    20477 INFO: Building PKG because PKG-00.toc is non existent
-    20477 INFO: Building PKG (CArchive) example.pkg
-    22332 INFO: Building PKG (CArchive) example.pkg completed successfully.
-    22338 INFO: Bootloader C:\Dev\ToolChains\Python\Python3\Lib\site-packages\PyInstaller\bootloader\Windows-64bit-intel\run.exe
-    22339 INFO: checking EXE
-    22339 INFO: Building EXE because EXE-00.toc is non existent
-    22340 INFO: Building EXE from EXE-00.toc
-    22340 INFO: Copying bootloader EXE to C:\Users\bytesketch\Example\dist\example.exe
-    22521 INFO: Copying icon to EXE
-    22616 INFO: Copying 0 resources to EXE
-    22616 INFO: Embedding manifest in EXE
-    22696 INFO: Appending PKG archive to EXE
-    22780 INFO: Fixing EXE headers
-    23199 INFO: Building EXE from EXE-00.toc completed successfully.
-    23204 INFO: Build complete! The results are available in: C:\Users\bytesketch\Example\dist
-    Successfully built project: in 23.76 seconds.
+    306 INFO: PyInstaller: 6.19.0, contrib hooks: 2026.2
+    307 INFO: Python: 3.14.3
+    372 INFO: Platform: Windows-11-10.0.26200-SP0
+    372 INFO: Python environment: C:\Users\bytesketch\Dev\PythonProjects\PyBuild\.venv
+    374 INFO: wrote C:\Users\bytesketch\Example\example.spec
+    2069 INFO: Module search paths (PYTHONPATH):
+    ['C:\\Users\\bytesketch\\Dev\\PythonProjects\\PyBuild\\.venv\\Scripts\\pyinstaller.exe',
+     'C:\\Users\\bytesketch\\Dev\\PythonProjects\\PyBuild\\.venv\\Scripts\\python314.zip',
+     'C:\\Dev\\ToolChains\\Python\\Python3\\DLLs',
+     'C:\\Dev\\ToolChains\\Python\\Python3\\Lib',
+     'C:\\Dev\\ToolChains\\Python\\Python3',
+     'C:\\Users\\bytesketch\\Dev\\PythonProjects\\PyBuild\\.venv',
+     'C:\\Users\\bytesketch\\Dev\\PythonProjects\\PyBuild\\.venv\\Lib\\site-packages',
+     'C:\\Users\\bytesketch\\Example\\example']
+    2688 INFO: Appending 'datas' from .spec
+    2696 INFO: checking Analysis
+    2697 INFO: Building Analysis because Analysis-00.toc is non existent
+    2697 INFO: Looking for Python shared library...
+    2697 INFO: Using Python shared library: C:\Users\bytesketch\Dev\PythonProjects\PyBuild\.venv\Scripts\python314.dll
+    2698 INFO: Running Analysis Analysis-00.toc
+    2698 INFO: Target bytecode optimization level: 0
+    2698 INFO: Initializing module dependency graph...
+    2701 INFO: Initializing module graph hook caches...
+    2730 INFO: Analyzing modules for base_library.zip ...
+    5993 INFO: Processing standard module hook 'hook-encodings.py' from 'C:\\Users\\bytesketch\\Dev\\PythonProjects\\PyBuild\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+    10410 INFO: Processing standard module hook 'hook-difflib.py' from 'C:\\Users\\bytesketch\\Dev\\PythonProjects\\PyBuild\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+    10474 INFO: Processing standard module hook 'hook-heapq.py' from 'C:\\Users\\bytesketch\\Dev\\PythonProjects\\PyBuild\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+    10752 INFO: Processing standard module hook 'hook-pickle.py' from 'C:\\Users\\bytesketch\\Dev\\PythonProjects\\PyBuild\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+    13964 INFO: Caching module dependency graph...
+    14027 INFO: Analyzing C:\Users\bytesketch\Example\example\main.py
+    14030 INFO: Analyzing hidden import 'rich'
+    14044 INFO: Processing standard module hook 'hook-rich.py' from 'C:\\Users\\bytesketch\\Dev\\PythonProjects\\PyBuild\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+    15813 INFO: Processing standard module hook 'hook-pygments.py' from 'C:\\Users\\bytesketch\\Dev\\PythonProjects\\PyBuild\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+    19170 INFO: Processing pre-safe-import-module hook 'hook-typing_extensions.py' from 'C:\\Users\\bytesketch\\Dev\\PythonProjects\\PyBuild\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+    19171 INFO: SetuptoolsInfo: initializing cached setuptools info...
+    20978 INFO: Processing standard module hook 'hook-platform.py' from 'C:\\Users\\bytesketch\\Dev\\PythonProjects\\PyBuild\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+    21088 INFO: Processing standard module hook 'hook-sysconfig.py' from 'C:\\Users\\bytesketch\\Dev\\PythonProjects\\PyBuild\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+    21098 INFO: Processing standard module hook 'hook-_ctypes.py' from 'C:\\Users\\bytesketch\\Dev\\PythonProjects\\PyBuild\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+    21813 INFO: Analyzing hidden import 'rich._unicode_data.unicode10-0-0'
+    21845 INFO: Analyzing hidden import 'rich._unicode_data.unicode11-0-0'
+    21882 INFO: Analyzing hidden import 'rich._unicode_data.unicode12-0-0'
+    21911 INFO: Analyzing hidden import 'rich._unicode_data.unicode12-1-0'
+    21941 INFO: Analyzing hidden import 'rich._unicode_data.unicode13-0-0'
+    21970 INFO: Analyzing hidden import 'rich._unicode_data.unicode14-0-0'
+    22007 INFO: Analyzing hidden import 'rich._unicode_data.unicode15-0-0'
+    22043 INFO: Analyzing hidden import 'rich._unicode_data.unicode15-1-0'
+    22079 INFO: Analyzing hidden import 'rich._unicode_data.unicode16-0-0'
+    22112 INFO: Analyzing hidden import 'rich._unicode_data.unicode17-0-0'
+    22148 INFO: Analyzing hidden import 'rich._unicode_data.unicode4-1-0'
+    22165 INFO: Analyzing hidden import 'rich._unicode_data.unicode5-0-0'
+    22187 INFO: Analyzing hidden import 'rich._unicode_data.unicode5-1-0'
+    22211 INFO: Analyzing hidden import 'rich._unicode_data.unicode5-2-0'
+    22232 INFO: Analyzing hidden import 'rich._unicode_data.unicode6-0-0'
+    22254 INFO: Analyzing hidden import 'rich._unicode_data.unicode6-1-0'
+    22278 INFO: Analyzing hidden import 'rich._unicode_data.unicode6-2-0'
+    22305 INFO: Analyzing hidden import 'rich._unicode_data.unicode6-3-0'
+    22338 INFO: Analyzing hidden import 'rich._unicode_data.unicode7-0-0'
+    22360 INFO: Analyzing hidden import 'rich._unicode_data.unicode8-0-0'
+    22394 INFO: Analyzing hidden import 'rich._unicode_data.unicode9-0-0'
+    22440 INFO: Analyzing hidden import 'rich.bar'
+    22455 INFO: Analyzing hidden import 'rich.diagnose'
+    22462 INFO: Analyzing hidden import 'rich.filesize'
+    22468 INFO: Analyzing hidden import 'rich.layout'
+    22545 INFO: Analyzing hidden import 'rich.logging'
+    22570 INFO: Analyzing hidden import 'rich.progress'
+    22729 INFO: Analyzing hidden import 'rich.prompt'
+    22768 INFO: Analyzing hidden import 'typer'
+    24144 INFO: Analyzing hidden import 'typer.__main__'
+    24213 INFO: Analyzing hidden import 'typer.testing'
+    24300 INFO: Processing module hooks (post-graph stage)...
+    24571 INFO: Processing standard module hook 'hook-PIL.py' from 'C:\\Users\\bytesketch\\Dev\\PythonProjects\\PyBuild\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+    24975 INFO: Processing standard module hook 'hook-PIL.Image.py' from 'C:\\Users\\bytesketch\\Dev\\PythonProjects\\PyBuild\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+    25886 INFO: Processing standard module hook 'hook-xml.py' from 'C:\\Users\\bytesketch\\Dev\\PythonProjects\\PyBuild\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+    25948 INFO: Processing standard module hook 'hook-xml.etree.cElementTree.py' from 'C:\\Users\\bytesketch\\Dev\\PythonProjects\\PyBuild\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+    26449 INFO: Processing standard module hook 'hook-PIL.ImageFilter.py' from 'C:\\Users\\bytesketch\\Dev\\PythonProjects\\PyBuild\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+    33367 INFO: Processing standard module hook 'hook-PIL.SpiderImagePlugin.py' from 'C:\\Users\\bytesketch\\Dev\\PythonProjects\\PyBuild\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+    33512 INFO: Performing binary vs. data reclassification (132 entries)
+    33544 INFO: Looking for ctypes DLLs
+    33609 INFO: Analyzing run-time hooks ...
+    33614 INFO: Including run-time hook 'pyi_rth_inspect.py' from 'C:\\Users\\bytesketch\\Dev\\PythonProjects\\PyBuild\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+    33621 INFO: Including run-time hook 'pyi_rth_pkgutil.py' from 'C:\\Users\\bytesketch\\Dev\\PythonProjects\\PyBuild\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+    33663 INFO: Creating base_library.zip...
+    33711 INFO: Looking for dynamic libraries
+    34203 INFO: Extra DLL search directories (AddDllDirectory): []
+    34203 INFO: Extra DLL search directories (PATH): []
+    34970 INFO: Warnings written to C:\Users\bytesketch\Example\build\example\warn-example.txt
+    35080 INFO: Graph cross-reference written to C:\Users\bytesketch\Example\build\example\xref-example.html
+    35179 INFO: checking PYZ
+    35179 INFO: Building PYZ because PYZ-00.toc is non existent
+    35180 INFO: Building PYZ (ZlibArchive) C:\Users\bytesketch\Example\build\example\PYZ-00.pyz
+    35950 INFO: Building PYZ (ZlibArchive) C:\Users\bytesketch\Example\build\example\PYZ-00.pyz completed successfully.
+    35994 INFO: checking PKG
+    35994 INFO: Building PKG because PKG-00.toc is non existent
+    35994 INFO: Building PKG (CArchive) example.pkg
+    38988 INFO: Building PKG (CArchive) example.pkg completed successfully.
+    39004 INFO: Bootloader C:\Users\bytesketch\Dev\PythonProjects\PyBuild\.venv\Lib\site-packages\PyInstaller\bootloader\Windows-64bit-intel\run.exe
+    39005 INFO: checking EXE
+    39008 INFO: Building EXE because EXE-00.toc is non existent
+    39009 INFO: Building EXE from EXE-00.toc
+    39009 INFO: Copying bootloader EXE to C:\Users\bytesketch\Example\dist\example.exe
+    39133 INFO: Copying icon to EXE
+    39223 INFO: Copying 0 resources to EXE
+    39224 INFO: Embedding manifest in EXE
+    39307 INFO: Appending PKG archive to EXE
+    39412 INFO: Fixing EXE headers
+    39887 INFO: Building EXE from EXE-00.toc completed successfully.
+    39896 INFO: Build complete! The results are available in: C:\Users\bytesketch\Example\dist
+    Successfully built project: in 40.48 seconds.
 
-PS C:\Users\bytesketch> ./Example/dist/example
+PS C:\Users\bytesketch> ./Example/dist/example.exe
 
-    Hello from PyBuild
+    Hello from PyBuild!
 
-PS C:\Users\bytesketch>
+PS C:\Users\bytesketch> ./Example/dist/example.exe
