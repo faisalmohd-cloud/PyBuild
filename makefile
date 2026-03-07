@@ -6,18 +6,18 @@ clean: clear build
 
 build_app:
 	@echo Building app...
-	powershell -ExecutionPolicy Bypass -File pybuild.build.ps1
+	@powershell -ExecutionPolicy Bypass -File pybuild.build.ps1
 
 build_binary:
 	@echo Setting up files...
-	python binary-build.py
+	@python binary-build.py
 
 build_installer:
 	@echo Building installer...
-	powershell -ExecutionPolicy Bypass -File installer.build.ps1
+	@powershell -ExecutionPolicy Bypass -File installer.build.ps1
 
 clear:
 	@echo Cleaning...
-	-del pybuild_app_binary_code.py
-	-rmdir /q /s build
-	-rmdir /q /s dist
+	@-del pybuild_app_binary_code.py
+	@-rmdir /q /s build
+	@-rmdir /q /s dist
