@@ -223,12 +223,8 @@ def build_executable(project_path: Path, clean: bool) -> None:
 
 def build_library(project_path: Path, clean: bool) -> None:
     try:
-        subprocess.run(
-            [choose_python(), "-m", "build", "--version"],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-            check=True
-        )
+        subprocess.run([choose_python(), "-m", "build", "--version"], stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL, check=True)
     except Exception:
         raise RuntimeError("Python module 'build' is not installed. Run: pip install build")
 
