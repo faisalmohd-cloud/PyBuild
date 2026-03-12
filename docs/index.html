@@ -1,215 +1,894 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>PyBuild Documentation</title>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>PyBuild | Terminal-ready builder</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+          rel="stylesheet"/>
     <style>
+        :root {
+            --bg: #05070f;
+            --panel: rgba(10, 14, 23, 0.92);
+            --panel-strong: rgba(14, 19, 31, 0.98);
+            --accent: #54f0c3;
+            --accent-2: #7dd3ff;
+            --text: #e7f2ff;
+            --muted: #94a4b8;
+            --grid: rgba(255, 255, 255, 0.04);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 60px rgba(84, 240, 195, 0.08);
+        }
+
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0d1117;
-            color: #c9d1d9;
-            line-height: 1.6;
-            padding: 2rem;
+            margin: 0;
+            font-family: "Space Grotesk", "Segoe UI", system-ui, -apple-system, sans-serif;
+            color: var(--text);
+            background: radial-gradient(circle at 20% 20%, rgba(84, 240, 195, 0.12), transparent 22%),
+            radial-gradient(circle at 80% 10%, rgba(125, 211, 255, 0.14), transparent 23%),
+            radial-gradient(circle at 70% 70%, rgba(84, 240, 195, 0.09), transparent 26%),
+            var(--bg);
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        a {
-            color: #58a6ff;
+        .grid-overlay {
+            position: fixed;
+            inset: 0;
+            background-image: linear-gradient(transparent 96%, rgba(255, 255, 255, 0.03) 100%),
+            linear-gradient(90deg, transparent 96%, rgba(255, 255, 255, 0.03) 100%);
+            background-size: 24px 24px, 24px 24px;
+            pointer-events: none;
+            opacity: 0.35;
+            animation: drift 18s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes drift {
+            from {
+                transform: translate3d(0, 0, 0);
+            }
+            to {
+                transform: translate3d(-24px, -24px, 0);
+            }
+        }
+
+        .scanline {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
+            mix-blend-mode: screen;
+            opacity: 0.07;
+            animation: scan 4.5s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes scan {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(100%);
+            }
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(12px);
+            background: rgba(5, 7, 15, 0.7);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .nav {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 14px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .brand .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent) 0%, #1a3d2d 80%);
+            box-shadow: 0 0 12px rgba(84, 240, 195, 0.7);
+        }
+
+        nav a {
+            color: var(--muted);
             text-decoration: none;
+            font-size: 14px;
+            padding: 6px 10px;
+            border-radius: 8px;
+            transition: color 0.2s ease, background 0.2s ease;
         }
 
-        a:hover {
-            text-decoration: underline;
+        nav a:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.04);
         }
 
-        h1, h2, h3, h4 {
-            font-weight: 600;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            color: #58a6ff;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        h2 {
-            font-size: 1.75rem;
-            color: #8b949e;
-            margin-bottom: 1rem;
-        }
-
-        h3 {
-            font-size: 1.3rem;
-            color: #8b949e;
-            margin-bottom: 0.5rem;
+        main {
+            position: relative;
+            z-index: 2;
         }
 
         .container {
-            max-width: 1000px;
-            margin: auto;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 38px 22px 80px;
+        }
+
+        .hero {
             display: grid;
-            gap: 2rem;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 28px;
+            align-items: center;
+            margin-top: 24px;
         }
 
-        .card {
-            background-color: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
+        .terminal-shell {
+            background: linear-gradient(135deg, rgba(13, 19, 33, 0.92), rgba(8, 12, 22, 0.96));
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            position: relative;
+            isolation: isolate;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        .terminal-shell::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 20% 20%, rgba(84, 240, 195, 0.14), transparent 40%),
+            radial-gradient(circle at 80% 0%, rgba(125, 211, 255, 0.12), transparent 35%);
+            pointer-events: none;
+            opacity: 0.8;
         }
 
-        pre {
-            background-color: #0d1117;
-            border: 1px solid #30363d;
-            padding: 1rem;
-            border-radius: 8px;
-            overflow-x: auto;
-            margin-bottom: 1rem;
+        .terminal-top {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--card-border);
         }
 
-        code {
-            font-family: 'Fira Code', monospace;
-            color: #8b949e;
-            background-color: #0d1117;
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
+        .traffic {
+            display: flex;
+            gap: 8px;
         }
 
-        pre code {
-            background: none;
-            padding: 0;
-            color: #c9d1d9;
+        .traffic span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
         }
 
-        blockquote {
-            border-left: 4px solid #238636;
-            padding-left: 1rem;
-            color: #8b949e;
-            font-style: italic;
-            margin: 1rem 0;
+        .traffic .red {
+            background: #ff5f56;
         }
 
-        ul, ol {
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
+        .traffic .yellow {
+            background: #ffbd2e;
         }
 
-        li {
-            margin-bottom: 0.5rem;
+        .traffic .green {
+            background: #27c93f;
+        }
+
+        .terminal-label {
+            font-size: 13px;
+            color: var(--muted);
+            margin-left: auto;
+            font-family: "JetBrains Mono", monospace;
+        }
+
+        .terminal-body {
+            padding: 18px;
+            position: relative;
+            min-height: 260px;
+            font-family: "JetBrains Mono", monospace;
+        }
+
+        .prompt-line {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .prompt-caret {
+            color: var(--accent);
+        }
+
+        .typed {
+            margin: 0;
+            white-space: pre-wrap;
+            color: #d0e5ff;
+            min-height: 170px;
+            line-height: 1.45;
+            text-shadow: 0 0 18px rgba(84, 240, 195, 0.12);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 18px;
+            background: var(--accent);
+            margin-left: 4px;
+            animation: blink 1s steps(2, start) infinite;
+            box-shadow: 0 0 12px rgba(84, 240, 195, 0.8);
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .hero-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        h1 {
+            font-size: clamp(32px, 4vw, 44px);
+            margin: 0;
+            line-height: 1.1;
+            letter-spacing: -0.01em;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .badge {
+            border: 1px solid var(--card-border);
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.02);
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pulse {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 10px rgba(84, 240, 195, 0.8);
+            animation: pulse 1.9s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.9);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.15);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0.9);
+                opacity: 0.8;
+            }
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 6px;
         }
 
         .btn {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background-color: #238636;
-            color: white;
-            border-radius: 6px;
-            font-weight: bold;
+            border: 1px solid var(--card-border);
+            background: linear-gradient(90deg, rgba(84, 240, 195, 0.2), rgba(125, 211, 255, 0.1));
+            color: var(--text);
+            padding: 12px 16px;
+            border-radius: 12px;
             text-decoration: none;
-            transition: background 0.2s;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            box-shadow: var(--shadow);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+        }
+
+        .btn.secondary {
+            background: rgba(255, 255, 255, 0.04);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
         }
 
         .btn:hover {
-            background-color: #2ea043;
+            transform: translateY(-2px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
         }
 
-        .card h2 {
-            border-bottom: 1px solid #30363d;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--muted);
         }
 
+        section {
+            margin-top: 70px;
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+
+        .section-head h2 {
+            margin: 0;
+            font-size: 24px;
+            letter-spacing: -0.01em;
+        }
+
+        .section-head p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(84, 240, 195, 0.08), rgba(125, 211, 255, 0.05));
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            pointer-events: none;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(84, 240, 195, 0.22);
+        }
+
+        .icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .card h3 {
+            margin: 12px 0 6px;
+            font-size: 17px;
+        }
+
+        .card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .commands {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .codebox {
+            background: var(--panel-strong);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 14px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .codebox-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .codebox pre {
+            margin: 0;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 12px;
+            font-family: "JetBrains Mono", monospace;
+            color: #d7f5ff;
+            font-size: 13px;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .copy {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            border: 1px solid var(--card-border);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            border-radius: 10px;
+            padding: 6px 10px;
+            font-size: 12px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.18s ease, transform 0.18s ease;
+        }
+
+        .copy:hover {
+            background: rgba(84, 240, 195, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 22px;
+            border-left: 1px solid var(--card-border);
+            display: grid;
+            gap: 18px;
+        }
+
+        .milestone {
+            position: relative;
+            background: var(--panel);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 12px 14px 12px 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .milestone::before {
+            content: "";
+            position: absolute;
+            left: -24px;
+            top: 18px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 16px rgba(84, 240, 195, 0.9);
+        }
+
+        .milestone small {
+            color: var(--muted);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .milestone strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 16px;
+        }
+
+        .milestone p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        footer {
+            margin-top: 70px;
+            padding: 24px 0 36px;
+            color: var(--muted);
+            font-size: 13px;
+            border-top: 1px solid var(--card-border);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 940px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                position: sticky;
+            }
+
+            .section-head {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 540px) {
+            .nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav {
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+
+            .terminal-body {
+                min-height: 200px;
+            }
+        }
     </style>
 </head>
 <body>
-<h1>PyBuild</h1>
-<div class="container">
-    <div class="card">
-        <p><strong>PyBuild</strong> is a <code>lightweight</code>, <code>experimental</code> Python project initializer
-            and builder that automates basic project setup.
-            This app is currently in an experimental stage, so it’s best suited for <code>mini</code> projects.
-            Future updates will expand support for multi-package initialization and more advanced builds.</p>
-        <blockquote>⚠️ <em>Build support is minimal. It only works with a perfect <code>pyproject.toml</code> (for
-            libraries) or <code>PyExeBuild.pyb</code> (for executables).</em></blockquote>
+<div class="grid-overlay"></div>
+<div class="scanline"></div>
+
+<header>
+    <div class="nav">
+        <div class="brand"><span class="dot"></span>PyBuild</div>
+        <nav>
+            <a href="#features">Features</a>
+            <a href="#commands">Commands</a>
+            <a href="#roadmap">Roadmap</a>
+            <a href="#download">Download</a>
+        </nav>
     </div>
+</header>
 
-    <div class="card">
-        <h2>Usage</h2>
-        <p>Installing and using PyBuild is simple:</p>
-        <ol>
-            <li>Download the <a href="https://www.github.com/bytesketch/PyBuild/releases/">installer from releases</a>.
-            </li>
-            <li>Choose a path and install it.</li>
-            <li>Use it via the terminal.</li>
-        </ol>
+<main>
+    <div class="container">
+        <section class="hero">
+            <div class="terminal-shell reveal">
+                <div class="terminal-top">
+                    <div class="traffic"><span class="red"></span><span class="yellow"></span><span
+                            class="green"></span></div>
+                    <div class="terminal-label">pybuild.exe</div>
+                </div>
+                <div class="terminal-body">
+                    <pre class="typed" id="typed"></pre>
+                    <span class="cursor"></span>
+                </div>
+            </div>
 
-        <h3>Initialize a Project</h3>
-        <pre><code>pybuild init [path] [exe | lib] (--git)</code></pre>
+            <div class="hero-copy reveal">
+                <h1>Terminal-native builder for Python projects.</h1>
+                <p class="subtitle">PyBuild initializes, scaffolds, and packages small Python libraries or executables
+                    without the ceremony. Optimized for Windows terminals with clean defaults and an interactive
+                    shell.</p>
+                <div class="badge-row">
+                    <span class="badge"><span class="pulse"></span> 1.0-windows</span>
+                    <span class="badge">Lightweight CLI</span>
+                    <span class="badge">Interactive shell</span>
+                </div>
+                <div class="cta-row">
+                    <a class="btn" href="https://github.com/bytesketch/PyBuild/releases/latest" rel="noreferrer"
+                       target="_blank">Download PyBuild</a>
+                    <a class="btn secondary" href="https://github.com/bytesketch/PyBuild" rel="noreferrer"
+                       target="_blank">View on GitHub</a>
+                </div>
+                <div class="pill">Works best on Windows today. Linux/macOS support planned.</div>
+            </div>
+        </section>
 
-        <h4>Examples</h4>
-        <p>Initialize an executable project in the current directory:</p>
-        <pre><code>pybuild init . exe</code></pre>
+        <section id="features">
+            <div class="section-head">
+                <h2>Why PyBuild</h2>
+                <p>Ship quick project scaffolds, build executables, and keep the terminal flow.</p>
+            </div>
+            <div class="cards">
+                <div class="card reveal">
+                    <div aria-hidden="true" class="icon">
+                        <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                             stroke-width="2" viewBox="0 0 24 24" width="20">
+                            <path d="M13 2 L4 14 h7 l-1 8 9-12 h-7 z"/>
+                        </svg>
+                    </div>
+                    <h3>Fast starts</h3>
+                    <p>Initialize executable or library layouts with sensible defaults, optional Git setup, and
+                        ready-to-run virtual environments.</p>
+                </div>
+                <div class="card reveal">
+                    <div aria-hidden="true" class="icon">
+                        <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                             stroke-width="2" viewBox="0 0 24 24" width="20">
+                            <rect height="5" rx="1" width="7" x="3" y="5"/>
+                            <rect height="5" rx="1" width="7" x="14" y="5"/>
+                            <rect height="5" rx="1" width="7" x="3" y="14"/>
+                            <rect height="5" rx="1" width="7" x="14" y="14"/>
+                        </svg>
+                    </div>
+                    <h3>Build & clean</h3>
+                    <p>Build libraries or PyInstaller executables with one command. Use --clean to wipe stale artifacts
+                        before packaging.</p>
+                </div>
+                <div class="card reveal">
+                    <div aria-hidden="true" class="icon">
+                        <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                             stroke-width="2" viewBox="0 0 24 24" width="20">
+                            <rect height="12" rx="2" width="18" x="3" y="5"/>
+                            <path d="M8 19h8"/>
+                        </svg>
+                    </div>
+                    <h3>Interactive shell</h3>
+                    <p>Drop into a minimal shell for quick file operations like ls, cd, mkdir, cp, mv, rm, and more.</p>
+                </div>
+                <div class="card reveal">
+                    <div aria-hidden="true" class="icon">
+                        <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                             stroke-width="2" viewBox="0 0 24 24" width="20">
+                            <circle cx="12" cy="12" r="9"/>
+                            <polygon points="10 10 16 8 14 14 8 16"/>
+                        </svg>
+                    </div>
+                    <h3>Opinionated, not heavy</h3>
+                    <p>Small binary, clear outputs, and roadmap toward templates, better help, and cross-platform
+                        support.</p>
+                </div>
+            </div>
+        </section>
 
-        <p>Initialize a library project with Git in a <code>Projects</code> folder:</p>
-        <pre><code>pybuild init Projects lib --git</code></pre>
+        <section id="commands">
+            <div class="section-head">
+                <h2>Core commands</h2>
+                <p>Minimal switches, predictable output. Copy-paste ready.</p>
+            </div>
+            <div class="commands">
+                <div class="codebox reveal">
+                    <div class="codebox-header">Initialize a project</div>
+                    <button aria-label="Copy init command" class="copy" data-target="code-init">Copy</button>
+                    <pre id="code-init">pybuild init . exe --git
+pybuild init Projects lib --git
+pybuild init MyTool exe</pre>
+                </div>
+                <div class="codebox reveal">
+                    <div class="codebox-header">Build and clean</div>
+                    <button aria-label="Copy build command" class="copy" data-target="code-build">Copy</button>
+                    <pre id="code-build">pybuild build MyLibrary --clean
+pybuild build MyExe
+pybuild</pre>
+                </div>
+                <div class="codebox reveal" style="grid-column: 1 / -1;">
+                    <div class="codebox-header">Project structure hints</div>
+                    <button aria-label="Copy structure sample" class="copy" data-target="code-structure">Copy</button>
+                    <pre id="code-structure">Executable (exe)
+ProjectName/
+  resources/
+  PyExeBuild.pyb
+  main/main.py
+
+Library (lib)
+ProjectName/
+  item_name/
+    __init__.py
+    item_name.py
+  pyproject.toml</pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="roadmap">
+            <div class="section-head">
+                <h2>Roadmap</h2>
+                <p>Experimental today. Growing toward templates and cross-platform.</p>
+            </div>
+            <div class="timeline">
+                <div class="milestone reveal">
+                    <small>Shipped</small>
+                    <strong>1.0-windows release</strong>
+                    <p>Stable Windows build with executable and library flows, PyInstaller packaging, and installer
+                        builder.</p>
+                </div>
+                <div class="milestone reveal">
+                    <small>Next</small>
+                    <strong>Template packs</strong>
+                    <p>Curated templates for libraries and executables plus cleaner CLI output and help.</p>
+                </div>
+                <div class="milestone reveal">
+                    <small>Planned</small>
+                    <strong>Cross-platform + PyPI</strong>
+                    <p>Linux/macOS binaries, publish to PyPI, richer interactive shell with color-coded output.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="download">
+            <div class="section-head">
+                <h2>Get PyBuild</h2>
+                <p>Windows-first binary. Grab the latest release or explore the source.</p>
+            </div>
+            <div class="cards">
+                <div class="card reveal">
+                    <div aria-hidden="true" class="icon">
+                        <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                             stroke-width="2" viewBox="0 0 24 24" width="20">
+                            <path d="M12 4v12"/>
+                            <path d="M6 12l6 6 6-6"/>
+                            <path d="M5 20h14"/>
+                        </svg>
+                    </div>
+                    <h3>Download</h3>
+                    <p>Install the latest Windows release from GitHub Releases.</p>
+                    <div class="cta-row" style="margin-top: 10px;">
+                        <a class="btn" href="https://github.com/bytesketch/PyBuild/releases/latest" rel="noreferrer"
+                           target="_blank">Latest release</a>
+                    </div>
+                </div>
+                <div class="card reveal">
+                    <div aria-hidden="true" class="icon">
+                        <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                             stroke-width="2" viewBox="0 0 24 24" width="20">
+                            <path d="M15 5l4 4-9 9H6v-4z"/>
+                            <path d="M16 3l5 5"/>
+                        </svg>
+                    </div>
+                    <h3>Build locally</h3>
+                    <p>Use make for the full chain or run the PowerShell helpers and binary-build script manually.</p>
+                    <pre style="margin-top: 10px; background: rgba(0,0,0,0.35); padding: 10px; border-radius: 10px; border: 1px solid var(--card-border); font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #cfe8ff;">make # Yes that's it</pre>
+                </div>
+                <div class="card reveal">
+                    <div aria-hidden="true" class="icon">
+                        <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                             stroke-width="2" viewBox="0 0 24 24" width="20">
+                            <path d="M3 12l4-4h4l3 3 4-4"/>
+                            <path d="M12 12l4 4h4"/>
+                            <path d="M8 12l-4 4"/>
+                        </svg>
+                    </div>
+                    <h3>Contribute</h3>
+                    <p>Ideas: better templates, richer shell help, PyPI release, and GUI for beginners. Contributions
+                        welcome.</p>
+                    <div class="cta-row" style="margin-top: 10px;">
+                        <a class="btn secondary" href="https://github.com/bytesketch/PyBuild" rel="noreferrer"
+                           target="_blank">Open repository</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            PyBuild — lightweight project builder. MIT License 2026.
+        </footer>
     </div>
+</main>
 
-    <div class="card">
-        <h2>Platform Support</h2>
-        <ul>
-            <li><strong>Windows:</strong> Fully supported.</li>
-            <li><strong>Linux / macOS:</strong> Currently <strong>not supported</strong>.</li>
-        </ul>
-    </div>
+<script>
+    const lines = [
+        "PS C:\\Users\\you> pybuild init Projects exe --git",
+        "Creating Python executable scaffold...",
+        "- .venv created",
+        "- resources/ added",
+        "- PyExeBuild.pyb ready",
+        "- main/main.py stubbed",
+        "Init complete. Happy shipping!",
+        "PS C:\\Users\\you> pybuild build Projects --clean",
+        "Cleaning build + dist...",
+        "Packaging executable via PyInstaller...",
+        "Build done -> dist/Projects.exe"
+    ];
 
-    <div class="card">
-        <h2>Building PyBuild (Windows Only)</h2>
-        <p>You can build the app and its installer in a few steps.</p>
+    const typed = document.getElementById('typed');
+    let idx = 0;
+    let char = 0;
+    let buffer = '';
 
-        <h3>Step 1: Clone the repository</h3>
-        <pre><code>git clone https://github.com/bytesketch/PyBuild.git
-cd PyBuild</code></pre>
-        <p>Or <a href="https://github.com/bytesketch/PyBuild/archive/refs/heads/main.zip">download directly</a>, unzip,
-            and change into the directory.</p>
+    function tick() {
+        if (idx >= lines.length) {
+            idx = 0;
+            buffer = '';
+            char = 0;
+            typed.innerText = '';
+            setTimeout(tick, 600);
+            return;
+        }
+        const line = lines[idx];
+        buffer += line[char] ?? '';
+        typed.innerText = buffer;
+        char += 1;
+        if (char > line.length) {
+            buffer += '\n';
+            typed.innerText = buffer;
+            idx += 1;
+            char = 0;
+            setTimeout(tick, 550);
+        } else {
+            setTimeout(tick, 22 + Math.random() * 35);
+        }
+    }
 
-        <h3>Step 2: Build the App</h3>
-        <h4>Option A: Using <code>make</code></h4>
-        <pre><code>make</code></pre>
+    tick();
 
-        <h4>Option B: Without <code>make</code> (Windows PowerShell)</h4>
-        <ol>
-            <li>Build the app:
-                <pre><code>powershell -ExecutionPolicy Bypass -File pybuild.build.ps1</code></pre>
-            </li>
-            <li>Build the binary:
-                <pre><code>python binary-build.py</code></pre>
-            </li>
-            <li>Build the installer:
-                <pre><code>powershell -ExecutionPolicy Bypass -File installer.build.ps1</code></pre>
-            </li>
-        </ol>
-    </div>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, {threshold: 0.2});
 
-    <div class="card">
-        <h2>License</h2>
-        <p>This project is licensed under <strong>MIT 2026</strong>.
-            For full details, see <a href="https://www.github.com/bytesketch/PyBuild/blob/main/LICENSE">LICENSE</a>.</p>
-    </div>
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
-</div>
+    document.querySelectorAll('.copy').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const target = document.getElementById(btn.dataset.target);
+            if (!target) return;
+            navigator.clipboard?.writeText(target.innerText.trim());
+            btn.textContent = 'Copied';
+            setTimeout(() => {
+                btn.textContent = 'Copy';
+            }, 1200);
+        });
+    });
+</script>
 </body>
 </html>

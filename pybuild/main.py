@@ -1,4 +1,5 @@
 import os
+import shutil
 import subprocess
 import sys
 import time
@@ -10,12 +11,14 @@ from rich.console import Console
 from rich.table import Table
 
 import core
+import file
+from file import Ignore
 from project_type import ProjectType
 
 app: typer.Typer = typer.Typer()
 console: Console = Console()
 
-VERSION: str = "1.0-rc2.windows"
+VERSION: str = "1.0-windows"
 
 
 @app.callback()
@@ -149,22 +152,83 @@ def version() -> None:
     print(f"[dim]PyBuild version:[/dim] [bright_cyan]{VERSION}[/bright_cyan]")
 
 
+def interactive_shell() -> None:
+    print("[bright_cyan]Welcome to PyBuild![/bright_cyan]")
+    print("Now type commands without 'pybuild'")
+    print("Use [bright_blue]exit[/bright_blue] to exit\n")
+
+    while True:
+        cwd = Path.cwd().resolve()
+        display = str(cwd).replace("\\", "/")
+        parts = display.split("/")
+        if len(parts) >= 3 and parts[0:2] == ["C:", "Users"]:
+            display = "~/" + "/".join(parts[3:])
+        raw = input(f"{display} >> ").strip()
+        if not raw:
+            continue
+        command = raw.split()
+        name = command[0].lower()
+
+        try:
+            if name == "exit":
+                break
+            elif name == "mkdir" and len(command) > 1:
+                Path(command[1]).mkdir(parents=True, exist_ok=True)
+            elif name == "rm" and len(command) > 1:
+                target = Path(command[1])
+                if target.is_dir():
+                    shutil.rmtree(target, ignore_errors=True)
+                else:
+                    target.unlink(missing_ok=True)
+            elif name == "touch" and len(command) > 1:
+                Path(command[1]).touch()
+            elif name == "cp" and len(command) > 2:
+                src = Path(command[1])
+                dst = Path(command[2])
+                if src.is_dir():
+                    shutil.copytree(src, dst, dirs_exist_ok=True)
+                else:
+                    shutil.copy2(src, dst)
+            elif name == "mv" and len(command) > 2:
+                shutil.move(command[1], command[2])
+            elif name == "ls":
+                ignore = Ignore()
+                path = Path.cwd()
+                max_lev = 5
+                args = command[1:]
+                for arg in args:
+                    if arg.startswith("ignore="):
+                        raw = arg.split("=", 1)[1].strip("[]")
+                        names = {x.strip().lower() for x in raw.split("|") if x}
+                        for n in names:
+                            ignore.ignore_names.append(n)
+                    elif arg.startswith("max="):
+                        try:
+                            max_lev = int(arg.split("=", 1)[1])
+                        except Exception as e:
+                            print(f"[bright_red]{e}[/bright_red]")
+                            continue
+                    else:
+                        p = Path(arg)
+                        if p.exists():
+                            path = p.resolve()
+                print(file.build_tree(path, ignore, max_lev))
+            elif name == "cd" and len(command) > 1:
+                os.chdir(command[1])
+            else:
+                subprocess.run(["pybuild", *command], check=False)
+        except Exception as e:
+            print(f"[bright_red]{e}[/bright_red]")
+
+    print("[bright_yellow]Exiting...[/bright_yellow]")
+
+
 if __name__ == "__main__":
     if len(sys.argv) == 1:
-        print("[bright_cyan]Welcome to PyBuild![/bright_cyan]")
-        print("Now type commands without 'pybuild'")
-        print("Use [bright_blue]exit[/bright_blue] to exit")
-
-        while True:
-            cmd = ["pybuild"]
-            cmd.extend(input(">> ").strip().split())
-            if cmd[1] == "exit":
-                break
-            subprocess.run(cmd, check=True)
-        print("[bright_yellow]Exiting...[/bright_yellow]")
+        interactive_shell()
     else:
         cmd = sys.argv[1].lower()
         if cmd.startswith("--"):
-            print("[bright_red]Error:[/bright_red] This app do not support option with '--'")
+            print("[bright_red]Error:[/bright_red] This app does not support '--' options")
         else:
             app()

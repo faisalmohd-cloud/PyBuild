@@ -52,7 +52,7 @@ if __name__ == "__main__":
                 winreg.SetValueEx(key, "Path", 0, regtype, new_path)
                 print("[bright_green]Added install directory to PATH.[/bright_green]")
             else:
-                print("[bright_yellow]Install directory already in PATH.[/bright_yellow]")
+                pass
 
         print("[bright_green]Installation successful![/bright_green]")
 

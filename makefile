@@ -2,6 +2,10 @@ build: build_app build_binary build_installer
 	@echo Build Completed.
 	@echo Result in dist/PyBuild-Installer.exe
 
+install_clean: clean
+	@echo Installing...
+	@./dist/PyBuild-Installer.exe
+
 clean: clear build
 
 build_app:
