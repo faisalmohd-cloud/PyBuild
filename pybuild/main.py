@@ -202,7 +202,7 @@ def interactive_shell() -> None:
                         names = {x.strip().lower() for x in raw.split("|") if x}
                         for n in names:
                             ignore.ignore_names.append(n)
-                    elif arg.startswith("max="):
+                    elif arg.startswith("upto="):
                         try:
                             max_lev = int(arg.split("=", 1)[1])
                         except Exception as e:

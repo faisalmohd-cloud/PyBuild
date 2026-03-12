@@ -22,7 +22,16 @@ if __name__ == "__main__":
     print("Installing Pybuild...")
 
     if not shutil.which("pybuild"):
-        install_path: Path = Path(input("> Enter full path to install: ").strip())
+        install_path: Path = Path(
+            input("> Enter full path to install: ").strip() or os.path.join(os.getenv("LOCALAPPDATA"), "PyBuild"))
+        print(f"Installing at: [bright_blue]{install_path.resolve()}[/bright_blue]")
+        confirm: bool = input("Install? [Y/n]: ").lower().strip() != "n"
+
+        if not confirm:
+            print("[bright_yellow]Aborting install...[/bright_yellow]")
+            input("Press enter to continue...")
+            sys.exit()
+
         install_path.mkdir(parents=True, exist_ok=True)
     else:
         install_path: Path = Path(shutil.which("pybuild")).parent

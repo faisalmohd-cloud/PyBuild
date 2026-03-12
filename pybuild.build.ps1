@@ -7,5 +7,3 @@ pyinstaller pybuild\main.py `
     --collect-all markdown_it `
     --collect-all mdurl `
     --collect-all pygments
-
-python binary-build.py

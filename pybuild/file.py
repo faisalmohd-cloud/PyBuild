@@ -12,17 +12,25 @@ class Ignore:
         return False
 
 
-def build_tree(root: Path, ignore: Ignore, max_lev: int = 5, lev: int = 0, prefix: str = "") -> str:
+def build_tree(root: Path, ignore: Ignore, max_lev: int = 3, lev: int = 0, prefix: str = "") -> str:
     if root is None:
         return "None"
     tree = [f"[bright_blue]{root.name}[/bright_blue]/"] if lev == 0 else []
     if lev >= max_lev:
         return "\n".join(tree)
-    files = [f for f in sorted(root.iterdir(), key=lambda p: (p.is_file(), p.name.lower())) if
-             not f.is_symlink() and not ignore.check(f)]
+    files = []
+    try:
+        for f in sorted(root.iterdir(), key=lambda p: (p.is_file(), p.name.lower())):
+            try:
+                if not f.is_symlink() and not ignore.check(f):
+                    files.append(f)
+            except PermissionError:
+                continue
+    except PermissionError:
+        pass
     last = len(files) - 1
     for i, file in enumerate(files):
-        connector = "  └── " if i == last else "├── "
+        connector = "└── " if i == last else "├── "
         if file.is_file():
             tree.append(f"{prefix}{connector}{file.name}")
         else:
