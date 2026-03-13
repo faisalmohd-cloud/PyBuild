@@ -93,7 +93,7 @@ pybuild
 
 You get an interactive shell with:
 
-- `ls [path] [ignore=[name1|name2]] [max=N]` – Directory tree
+- `ls [path] [ignore=[name1|name2]] [upto=N]` – Directory tree
 - `cd <path>` – Change directory
 - `mkdir <name>` – Create folder
 - `rm <file|folder>` – Remove file/folder
